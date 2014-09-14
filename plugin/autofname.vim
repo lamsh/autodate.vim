@@ -1,11 +1,14 @@
 " vi:set ts=8 sts=2 sw=2 tw=0:
 "
-" autofname.vim - A plugin to update time stamps automatically
+" autofname.vim - A plugin to update file name automatically
 "
-" Maintainer:	MURAOKA Taro <koron@tka.att.ne.jp>
-" Last Change:	15-Sep-2014.
+" Maintainer: SENOO, Ken
+" (Last Update: 2014-09-15T01:19+09:00)
+" License: VIM LICENSE
 
 " Description:
+" autofname.vim was forked from autodate.vim. autodate.vim was made by MURAOKA Taro. I wanted to insert file name automatically. So I created autofname.vim from autodate.vim. Almost of autofname.vim is autodate.vim. Differences are parameter names(autodate -> autofname), and insert element (date -> file name).
+"
 " Command:
 "   :Autofname	    Manually autofname.
 "   :AutofnameON	    Turn on autofname in current buffer (default).
