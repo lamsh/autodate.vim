@@ -38,12 +38,12 @@
 "   'autofname_keyword_pre'
 "	A prefix pattern (see |pattern| for details) which denotes time
 "	stamp's location.  If empty, default value will be used.
-"	Default: '\cLast Change:'
+"	Default: '(File name:'
 "
 "   'autofname_keyword_post'
 "	A postfix pattern which denotes time stamp's location.  If empty,
 "	default value will be used.
-"	Default: '\.'
+"	Default: ')'
 "
 " Usage:
 "   Write a line as below (case ignored) somewhere in the first 50 lines of
@@ -115,11 +115,11 @@
 "
 "   'autofname_keyword_pre'
 "	タイムスタンプの存在を示す前置キーワード(正規表現)。必須。空文字列を
-"	指定すると省略値が使われる。省略値: '\cLast Change:'
+"	指定すると省略値が使われる。省略値: '(File name:'
 "
 "   'autofname_keyword_post'
 "	タイムスタンプの存在を示す後置キーワード(正規表現)。必須。空文字列を
-"	指定すると省略値が使われる。省略値: '\.'
+"	指定すると省略値が使われる。省略値: ')'
 "
 " 使用法:
 "   ファイルの先頭から50行以内に
@@ -198,14 +198,14 @@ endif
 " 'autofname_keyword_pre'
 "
 if !exists('autofname_keyword_pre')
-  let g:autofname_keyword_pre = '\cLast Change:'
+  let g:autofname_keyword_pre = '(File name:'
 endif
 
 "
 " 'autofname_keyword_post'
 "
 if !exists('autofname_keyword_post')
-  let g:autofname_keyword_post = '\.'
+  let g:autofname_keyword_post = ')'
 endif
 
 "---------------------------------------------------------------------------
