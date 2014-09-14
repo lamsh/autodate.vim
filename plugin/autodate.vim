@@ -340,7 +340,8 @@ function! s:AutofnameStub(first, last)
 
   " Generate substitution pattern
   let pat = '\('.pre.'\s*\)\(\S.*\)\?\('.post.'\)'
-  let sub = Strftime2(format)
+  " let sub = Strftime2(format)
+  let sub = expand("%:t")
   " For debug
   if s:debug
     echo "range=".a:first."-".a:last
