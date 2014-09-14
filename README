@@ -1,3 +1,8 @@
+autofname.vim
+
+このVimプラグインは指定された囲み文字の中に現在編集中のファイル名をファイルの保存時に自動的に挿入する。
+autodate.vimからForkして作られた。ほとんどautodate.vimと同じである。違う点はパラメーター名がautodateからautofnameに変わったことと，挿入する要素が日付からファイル名になったことだ。
+
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=291
 
 This plugin inserts and updates a time stamp automatically.
