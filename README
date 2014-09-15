@@ -9,7 +9,7 @@ Almost of autofname.vim is same as autodate.vim. Differences are following:
 * inserting element: date -> file name
 
 In actual, I modify autodate.vim by following:
-"""
+```
 vim autodate.vim
 :set noignorecase
 :%s/autodate/autofname/g
@@ -19,7 +19,7 @@ vim autodate.vim
 " write following:
   " let sub = Strftime2(format)
   let sub = expand("%:t")
-"""
+```
 
 Users can specify a format and position of the file name by options.
 By default, autofname.vim searches a keyword "(File name:)"
