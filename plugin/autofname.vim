@@ -3,7 +3,7 @@
 " autofname.vim - A plugin to update file name automatically
 "
 " Maintainer: SENOO, Ken
-" (Last Update: 2014-09-15T01:19+09:00)
+" (Last Update: 2014-09-15T11:51+09:00)
 " License: VIM LICENSE
 
 " Description:
@@ -17,11 +17,6 @@
 " Options:
 "   Each global variable (option) is overruled by buffer variable (what
 "   starts with "b:").
-"
-"   'autofname_format'
-"	Format string used for time stamps.  See |strftime()| for details.
-"	See MonthnameString() for special extension of format.
-"	Default: '%d-%3m-%Y'
 "
 "   'autofname_lines'
 "	The number of lines searched for the existence of a time stamp when
@@ -51,10 +46,10 @@
 " Usage:
 "   Write a line as below (case ignored) somewhere in the first 50 lines of
 "   a buffer:
-"	Last Change: .
-"   When writing the buffer to a file, this line will be modified and a time
-"   stamp will be inserted automatically.  Example:
-"	Last Change: 11-May-2002.
+"	(File name: )
+"   When writing the buffer to a file, this line will be modified and a
+"   file name (ex: hoge.txt) will be inserted automatically.  Example:
+"	(File name: hoge.txt)
 "
 "   You can execute :Autofname command to update time stamps manually.  The
 "   range of lines which looks for a time stamp can also be specified.  When
@@ -64,31 +59,22 @@
 "	:\<,\>Autofname		" Range selected by visual mode
 "	:Autofname		" Current cursor line
 "
-"   The format of the time stamp to insert can be specified by
-"   'autofname_format' option.  See |strftime()| (vim script function) for
-"   details.  Sample format settings and the corresponding outputs are show
-"   below.
-"	FORMAT: %Y/%m/%d	OUTPUT: 2001/12/24
-"	FORMAT: %H:%M:%S	OUTPUT: 10:06:32
-"	FORMAT: %y%m%d-%H%M	OUTPUT: 011224-1006
-"
 "   Autofname.vim determines where to insert a time stamp by looking for a
 "   KEYWORD.  A keyword consists of a PREFIX and a POSTFIX part, and they
 "   can be set by 'autofname_keyword_pre' and 'autofname_keyword_post'
 "   options, respectively.  If you set these values as below in your .vimrc:
-"	:let autofname_format = ': %Y/%m/%d %H:%M:%S '
-"	:let autofname_keyword_pre  = '\$Date'
+"	:let autofname_keyword_pre  = '\$File:'
 "	:let autofname_keyword_post = '\$'
-"   They will function like $Date$ in cvs.  Example:
-"	$Date: 2001/12/24 10:06:32 $
+"   They will function like following in hoge.csv.
+"	$File: hoge.csv $
 "
-"   Just another application. To insert a time stamp between '<!--DATE-->'
-"   when writing HTML, try below:
-"	:let b:autofname_keyword_pre = '<!--DATE-->'
-"	:let b:autofname_keyword_post = '<!--DATE-->'
+"   Just another application. To insert a time stamp between '<!--FILE-->'
+"   when writing HTML (hoge.html), try below:
+"	:let b:autofname_keyword_pre = '<!--FILE-->'
+"	:let b:autofname_keyword_post = '<!--FILE-->'
 "   It will be useful if to put these lines in your ftplugin/html.vim.
 "   Example:
-"	<!--DATE-->24-Dec-2001<!--DATE-->
+"	<!--FILE-->hoge.html<!--FILE-->
 "
 "   In addition, priority is given to a buffer local option (what starts in
 "   b:) about all the options of autofname.
@@ -99,37 +85,32 @@
 
 " Japanese Description:
 " コマンド:
-"   :Autofname	    手動でタイムスタンプ更新
+"   :Autofname	    手動でファイル名を更新
 "   :AutofnameON	    現在のバッファの自動更新を有効化
 "   :AutofnameOFF    現在のバッファの自動更新を無効化
 "
 " オプション: (それぞれのオプションはバッファ版(b:)が優先される)
 "
-"   'autofname_format'
-"	タイムスタンプに使用されるフォーマット文字列。フォーマットの詳細は
-"	|strftime()|を参照。フォーマットへの独自拡張についてはMonthnameString()
-"	を参照。省略値: '%d-%3m-%Y'
-"
 "   'autofname_lines'
-"	保存時にタイムスタンプの存在をチェックする行数。増やせば増やすほど
+"	保存時にファイル名の埋め込み箇所(プレースホルダー)の存在をチェックする行数。増やせば増やすほど
 "	キーワードを検索するために時間がかかり動作が遅くなる。逆に遅いと感じ
 "	たときには小さな値を設定すればパフォーマンスの改善が期待できる。
 "	省略値: 50
 "
 "   'autofname_keyword_pre'
-"	タイムスタンプの存在を示す前置キーワード(正規表現)。必須。空文字列を
+"	プレースホルダーの存在を示す前置キーワード(正規表現)。必須。空文字列を
 "	指定すると省略値が使われる。省略値: '(File name:'
 "
 "   'autofname_keyword_post'
-"	タイムスタンプの存在を示す後置キーワード(正規表現)。必須。空文字列を
+"	プレースホルダーの存在を示す後置キーワード(正規表現)。必須。空文字列を
 "	指定すると省略値が使われる。省略値: ')'
 "
 " 使用法:
 "   ファイルの先頭から50行以内に
-"	Last Change: .
+"	(File name: )
 "   と書いた行(大文字小文字は区別しません)を用意すると、ファイルの保存(:w)時
-"   に自動的にその時刻(タイムスタンプ)が挿入されます。結果例:
-"	Last Change: 11-May-2002.
+"   に自動的にそのときのファイル名(例：hoge.txt)が挿入されます。結果例:
+"	(File name: hoge.txt)
 "
 "   Exコマンドの:Autofnameを実行することで手動でタイムスタンプの更新が行なえ
 "   ます。その際にタイムスタンプを探す範囲を指定することもできます。特に範囲
@@ -138,29 +119,20 @@
 "	:\<,\>Autofname		" ビジュアル選択領域
 "	:Autofname		" 現在カーソルのある行
 "
-"   挿入するタイムスタンプの書式はオプション'autofname_format'で指定すること
-"   ができます。詳細はVimスクリプト関数|strftime()|の説明に従います。以下に
-"   書式とその出力の例を示します:
-"	書式: %Y/%m/%d		出力: 2001/12/24
-"	書式: %H:%M:%S		出力: 10:06:32
-"	書式: %y%m%d-%H%M	出力: 011224-1006
-"
-"   autofname.vimはキーワードを探すことでタイムスタンプを挿入すべき位置を決定
+"   autofname.vimはキーワードを探すことでファイル名を挿入すべき位置を決定
 "   しています。キーワードは前置部と後置部からなり、それぞれオプションの
 "   'autofname_keyword_pre'と'autofname_keyword_post'を設定することで変更でき
-"   ます。個人設定ファイル(_vimrc)で次のように設定すると:
-"	:let autofname_format = ': %Y/%m/%d %H:%M:%S '
-"	:let autofname_keyword_pre  = '\$Date'
+"   ます。個人設定ファイル(_vimrc)で次のように設定する:
+"	:let autofname_keyword_pre  = '\$File'
 "	:let autofname_keyword_post = '\$'
-"   cvsにおける$Date$のように動作します。例:
-"	$Date: 2001/12/24 10:06:32 $
+"   hoge.csvにおいて以下のように表示される。
+"	$File: hoge.csv $
 "
-"   応用としてHTMLを記述する際に<!--DATE-->で囲まれた中にタイムスタンプを挿
-"   入させたい場合には:
-"	:let b:autofname_keyword_pre = '<!--DATE-->'
-"	:let b:autofname_keyword_post = '<!--DATE-->'
+"   応用としてHTML (hoge.html)を記述する際に<!--DATE-->で囲まれた中にタイムスタンプを挿入させたい場合には:
+"	:let b:autofname_keyword_pre = '<!--FILE-->'
+"	:let b:autofname_keyword_post = '<!--FILE-->'
 "   と指定します。ftplugin/html.vimで設定すると便利でしょう。例:
-"	<!--DATE-->24-Dec-2001<!--DATE-->
+"	<!--FILE-->hoge.html<!--FILE-->
 "
 "   なおautofnameの総てのオプションについて、バッファローカルオプション(b:で
 "   始まるもの)が優先されます。
