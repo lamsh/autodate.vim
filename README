@@ -9,7 +9,6 @@ Almost of autofname.vim is same as autodate.vim. Differences are following:
 * inserting element: date -> file name
 
 In actual, I modify autodate.vim by following:
-```
 vim autodate.vim
 :set noignorecase
 :%s/autodate/autofname/g
@@ -19,7 +18,6 @@ vim autodate.vim
 " write following:
   " let sub = Strftime2(format)
   let sub = expand("%:t")
-```
 
 Users can specify a format and position of the file name by options.
 By default, autofname.vim searches a keyword "(File name:)"
@@ -36,9 +34,9 @@ See comments in autofname.vim for more details.
 
 このVimプラグインは指定された囲み文字の中に現在編集中のファイル名をファイルの保存時に自動的に挿入する。
 
-autodate.vim (https://github.com/vim-scripts/autodate.vim)からForkして作られた。ほとんどautodate.vimと同じである。違う点は以下である。
-* パラメーター名：autodate -> autofname
-* 挿入する要素：日付 -> ファイル名
+autodate.vim (https://github.com/vim-scripts/autodate.vim) からForkして作られた。ほとんどautodate.vimと同じである。違う点は以下である。
+* パラメーター名： autodate -> autofname
+* 挿入する要素： 日付 -> ファイル名
 
 具体的にはautodate.vimをVimで以下のように操作して作成した。
 vim autodate.vim
