@@ -1,22 +1,52 @@
-autofname.vim
+Project: autofname.vim
+Author: SENOO, Ken
+License: VIM LICENSE
 
-このVimプラグインは指定された囲み文字の中に現在編集中のファイル名をファイルの保存時に自動的に挿入する。
-autodate.vimからForkして作られた。ほとんどautodate.vimと同じである。違う点はパラメーター名がautodateからautofnameに変わったことと，挿入する要素が日付からファイル名になったことだ。
+Originally forked from vim-scripts/autodate.vim (https://github.com/vim-scripts/autodate.vim).
+This plugin inserts and updates a file name automatically.
+Almost of autofname.vim is same as autodate.vim. Differences are following:
+* parameter name: autodate -> autofname
+* inserting element: date -> file name
 
-This is a mirror of http://www.vim.org/scripts/script.php?script_id=291
+In actual, I modify autodate.vim by following:
+"""
+vim autodate.vim
+:set noignorecase
+:%s/autodate/autofname/g
+:%s/Autodate/Autofname/g
 
-This plugin inserts and updates a time stamp automatically.
+/let sub
+" write following:
+  " let sub = Strftime2(format)
+  let sub = expand("%:t")
+"""
 
-Users can specify a format and position of the time stamp by options.
-By default, autodate.vim searches a keyword "Last Change:."
-in the first 50 lines of the buffer, and inserts a time stamp.  Example: 
-    Last Change: 24-Jun-2003. 
+Users can specify a format and position of the file name by options.
+By default, autofname.vim searches a keyword "(File name:)"
+in the first 50 lines of the buffer, and inserts a file name.  Example: hoge.txt is following:
+    (File name: hoge.txt)
 
 Setting Example:
-    :let b:autodate_keyword_pre = '<!--DATE-->'
-    :let b:autodate_keyword_post = '<!--DATE-->'
-    :let b:autodate_format = '%Y/%m/%d'
-The Result:
-    <!--DATE-->2003/06/24<!--DATE-->
+    :let b:autofname_keyword_pre = '<!--FILE-->'
+    :let b:autodfname_keyword_post = '<!--FILE-->'
+The Result (hoge.html):
+    <!--FILE-->hoge.html<!--FILE-->
 
-See comments in autodate.vim for more details.
+See comments in autofname.vim for more details.
+
+このVimプラグインは指定された囲み文字の中に現在編集中のファイル名をファイルの保存時に自動的に挿入する。
+
+autodate.vim (https://github.com/vim-scripts/autodate.vim)からForkして作られた。ほとんどautodate.vimと同じである。違う点は以下である。
+* パラメーター名：autodate -> autofname
+* 挿入する要素：日付 -> ファイル名
+
+具体的にはautodate.vimをVimで以下のように操作して作成した。
+vim autodate.vim
+:set noignorecase
+:%s/autodate/autofname/g
+:%s/Autodate/Autofname/g
+
+/let sub
+以下のように入力
+  " let sub = Strftime2(format)
+  let sub = expand("%:t")

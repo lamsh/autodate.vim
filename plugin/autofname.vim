@@ -3,11 +3,11 @@
 " autofname.vim - A plugin to update file name automatically
 "
 " Maintainer: SENOO, Ken
-" (Last Update: 2014-09-15T11:51+09:00)
+" (Last Update: 2014-09-15T13:37+09:00)
 " License: VIM LICENSE
 
 " Description:
-" autofname.vim was forked from autodate.vim. autodate.vim was made by MURAOKA Taro. I wanted to insert file name automatically. So I created autofname.vim from autodate.vim. Almost of autofname.vim is autodate.vim. Differences are parameter names(autodate -> autofname), and insert element (date -> file name).
+" autofname.vim was forked from autodate.vim (https://github.com/vim-scripts/autodate.vim). autodate.vim was made by MURAOKA Taro. I wanted to insert file name automatically. So I created autofname.vim from autodate.vim. Almost of autofname.vim is autodate.vim. Differences are parameter names(autodate -> autofname), and insert element (date -> file name).
 "
 " Command:
 "   :Autofname	    Manually autofname.
