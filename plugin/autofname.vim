@@ -7,7 +7,7 @@
 " License: VIM LICENSE
 
 " Description:
-" autofname.vim was forked from autodate.vim (https://github.com/vim-scripts/autodate.vim). autodate.vim was made by MURAOKA Taro. I wanted to insert file name automatically. So I created autofname.vim from autodate.vim. Almost of autofname.vim is autodate.vim. Differences are parameter names(autodate -> autofname), and insert element (date -> file name).
+" autofname.vim was forked from autodate.vim (https://github.com/vim-scripts/autodate.vim). autodate.vim was made by MURAOKA Taro. I wanted to insert file autofname.vim).
 "
 " Command:
 "   :Autofname	    Manually autofname.
@@ -314,7 +314,7 @@ function! s:AutofnameStub(first, last)
   endif
 
   " Generate substitution pattern
-  let pat = '\('.pre.'\s*\)\(\S.*\)\?\('.post.'\)'
+  let pat = '\('.pre.'\s*\)\(\s.*\)\?\('.post.'\)'
   " let sub = Strftime2(format)
   let sub = expand("%:t")
   " For debug
